@@ -1,0 +1,7 @@
+<!-- 共通化処理-->
+<%= form_for(task) do |f| %>
+  <%= f.label :content, 'タスク' %>
+  <%= f.text_field :content %>
+
+  <%= f.submit '記入' %>
+<% end %>
