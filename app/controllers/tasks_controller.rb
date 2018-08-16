@@ -1,9 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :require_user_logged_in, only: [:index, :show]
   
-  def index
-     @tasks = Task.order(created_at: :desc).page(params[:page]).per(20)
-  end
+  # def index
+  #   @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(20)
+  #   # @tasks = Task.order(created_at: :desc).page(params[:page]).per(20)
+  # end
 
   def show
     
@@ -14,7 +16,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+    # Task.new(task_params)
 
     if @task.save
       flash[:success] = 'タスクが正常に記入されました'
@@ -62,4 +65,3 @@ class TasksController < ApplicationController
   end
 
 end
-
